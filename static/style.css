@@ -1,82 +1,133 @@
 /* Page base */
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f4f6f9;
-    height: 100vh;
+margin: 0;
+padding: 0;
+font-family: Arial, Helvetica, sans-serif;
+background: #f4f6f9;
 }
 
-/* Heading outside form */
-h2 {
-    text-align: center;
-    margin-top: 30px;
-    color: #333;
+/* Main title */
+.title-main {
+text-align: center;
+margin-top: 30px;
+color: #333;
 }
 
 /* Frame container */
 .frame {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-top: 40px;
+width: 100%;
+display: flex;
+justify-content: center;
+margin-top: 40px;
 }
 
 /* Center card */
 .center {
-    width: 420px;
-    background: #ffffff;
-    border-radius: 10px;
-    padding: 30px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    text-align: center;
+width: 420px;
+background: #ffffff;
+border-radius: 10px;
+padding: 30px;
+box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+text-align: center;
 }
 
 /* Title inside card */
 .center .title h1 {
-    font-size: 20px;
-    margin-bottom: 20px;
-    color: #222;
+font-size: 20px;
+margin-bottom: 20px;
+color: #222;
 }
 
 /* Dropzone area */
 .dropzone {
-    border: 2px dashed #4a90e2;
-    border-radius: 8px;
-    padding: 30px 20px;
-    cursor: pointer;
-    position: relative;
-    background: #f9fbff;
+border: 2px dashed #4a90e2;
+border-radius: 8px;
+padding: 30px 20px;
+cursor: pointer;
+position: relative;
+background: #f9fbff;
 }
 
 /* Upload icon */
 .upload-icon {
-    width: 60px;
-    margin-bottom: 10px;
+width: 60px;
+margin-bottom: 10px;
 }
 
 /* File input */
 .upload-input {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    cursor: pointer;
+position: absolute;
+inset: 0;
+opacity: 0;
+cursor: pointer;
 }
 
 /* Upload button */
 .btn {
-    margin-top: 25px;
-    padding: 12px 20px;
-    width: 100%;
-    border: none;
-    border-radius: 6px;
-    background: #4a90e2;
-    color: #fff;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background 0.3s ease;
+margin-top: 25px;
+padding: 12px 20px;
+width: 100%;
+border: none;
+border-radius: 6px;
+background: #4a90e2;
+color: #fff;
+font-size: 16px;
+cursor: pointer;
+transition: background 0.3s ease;
 }
 
 .btn:hover {
-    background: #357bd8;
+background: #357bd8;
+}
+
+/* Result section */
+.result-box {
+margin-top: 40px;
+text-align: center;
+}
+
+/* Table */
+table {
+margin: auto;
+border-collapse: collapse;
+width: 60%;
+background: #fff;
+}
+
+th, td {
+border: 1px solid #ccc;
+padding: 10px;
+}
+
+th {
+background: #f2f2f2;
+}
+
+/* Good / Bad styling */
+.good {
+color: green;
+font-weight: bold;
+}
+
+.bad {
+color: red;
+font-weight: bold;
+}
+
+/* Download button */
+.download-section {
+margin-top: 20px;
+}
+
+.download-btn {
+padding: 10px 20px;
+background: black;
+color: white;
+border: none;
+cursor: pointer;
+border-radius: 5px;
+}
+
+.download-btn:hover {
+background: #333;
 }

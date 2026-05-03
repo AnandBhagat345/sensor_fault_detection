@@ -43,17 +43,37 @@ def upload():
             result_df = prediction_pipeline.run_pipeline()
 
             # Target column (qualit)
-            results = result_df[['quality']].values.tolist()
+            result_df.reset_index(inplace=True)
+
+            # index ko sensor number bana do
+            result_df['Sensor'] = result_df['index'] + 1
+
+            results = result_df[['Sensor', 'quality']].values.tolist()
 
             lg.info("prediction completed. Showing results on UI.")
 
             return render_template(
-                'upload_file.html',
-                results=results
+            'upload_file.html',
+            results=results,
+            download_link="prediction/prediction_file.csv"
             )
 
         else:
             return render_template('upload_file.html')
+
+    except Exception as e:
+        raise CustomException(e, sys)
+    
+    
+@app.route('/download')
+def download_file():
+    try:
+        file_path = os.path.join("prediction", "prediction_file.csv")
+
+        if os.path.exists(file_path):
+            return send_file(file_path, as_attachment=True)
+        else:
+            return "File not found. Please run prediction first."
 
     except Exception as e:
         raise CustomException(e, sys)

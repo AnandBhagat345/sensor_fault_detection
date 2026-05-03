@@ -9,35 +9,64 @@
 
 <body>
 
-    <form action="/predict" method="POST" enctype="multipart/form-data">
+<form action="/predict" method="POST" enctype="multipart/form-data">
 
-        <h1 class="title"> Upload CSV for the prediction</h1>
+    <h1 class="title-main">Upload CSV for Prediction</h1>
 
     <div class="frame">
         <div class="center">
+            
             <div class="title">
                 <h1>Drop file to upload</h1>
             </div>
 
+            <div class="dropzone">
+                <img src="http://100days.com/codepen/upload.svg" class="upload-icon" />
+                <input type="file" class="upload-input" name="file" accept=".csv" required>
+            </div>
 
-                <div class="dropzone">
-                    <img src="http://100days.com/codepen/upload.svg" class="upload-icon" />
-                    <input type="file" class="upload-input" name="file" accept=".csv">
-                </div>
+            <button type="submit" class="btn">Upload File</button>
 
-            <button type="submit" class="btn" name="uploadbutton">Upload file</button>
+        </div>
+    </div>
 
+</form>
+
+<!-- Prediction Result Section -->
+{% if results %}
+    <div class="result-box">
+
+        <h2>Prediction Results</h2>
+
+        <table>
+            <tr>
+                <th>Sensor</th>
+                <th>Quality</th>
+            </tr>
+
+            {% for row in results %}
+            <tr>
+                <td>{{ row[0] }}</td>
+
+                {% if row[1] == 'good' %}
+                    <td class="good">{{ row[1] }}</td>
+                {% else %}
+                    <td class="bad">{{ row[1] }}</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </table>
+
+        <!-- Download Button -->
+        <div class="download-section">
+            <a href="/download">
+                <button class="download-btn">Download CSV</button>
+            </a>
         </div>
 
     </div>
+{% endif %}
 
 
-    </form>
-
-
-        <script src='https://100days.com/codepen/js/jquery.min.js'></script>
-        <script src="./script.js"></script>
-
-        
 </body>
 </html>
