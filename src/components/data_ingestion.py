@@ -49,7 +49,7 @@ class DataIngestion:
 
             sensor_data= self.export_collection_as_dataframe(
                 collection_name=MONGO_COLLECTION_NAME,
-                db_name= MANGO_DATABASE_NAME
+                db_name= MONGO_DATABASE_NAME
             )
             
             logging.info(f"Saving exported data into feature store file path :{raw_file_path}")
