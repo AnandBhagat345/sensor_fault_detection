@@ -90,6 +90,8 @@ class PredictionPipeline:
 
             logging.info("prediction completed")
 
+            return input_dataframe
+
         except Exception as e:
             raise CustomException(e,sys)
         
@@ -98,9 +100,9 @@ class PredictionPipeline:
     def run_pipeline(self):
         try:
             input_csv_path = self.save_input_files()
-            self.get_predicted_dataframe(input_csv_path)
+            df = self.get_predicted_dataframe(input_csv_path)
 
-            return self.prediction_pipeline_config
+            return df   
 
         except Exception as e:
             raise CustomException(e,sys)
