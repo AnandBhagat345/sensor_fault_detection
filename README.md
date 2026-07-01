@@ -64,7 +64,7 @@ This project is not just a model training notebook. It is structured like a real
 ### Prediction Result Page
 
 <p align="center">
-  <img src="images/result page.png" alt="Prediction Results" width="850">
+  <img src="image/result page.png" alt="Prediction Results" width="850">
 </p>
 
 ---
