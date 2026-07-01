@@ -1,72 +1,93 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Wafer fault detection</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-    <link rel="stylesheet" href="../static/style.css">
-</head>
-
-<body>
-
-<form action="/predict" method="POST" enctype="multipart/form-data">
-
-    <h1 class="title-main">Upload CSV for Prediction</h1>
-
-    <div class="frame">
-        <div class="center">
-            
-            <div class="title">
-                <h1>Drop file to upload</h1>
-            </div>
-
-            <div class="dropzone">
-                <img src="http://100days.com/codepen/upload.svg" class="upload-icon" />
-                <input type="file" class="upload-input" name="file" accept=".csv" required>
-            </div>
-
-            <button type="submit" class="btn">Upload File</button>
-
-        </div>
-    </div>
-
-</form>
-
-<!-- Prediction Result Section -->
 {% if results %}
-    <div class="result-box">
+    <div class="dashboard">
 
-        <h2>Prediction Results</h2>
+        <h2>Prediction Dashboard</h2>
 
-        <table>
-            <tr>
-                <th>Sensor</th>
-                <th>Quality</th>
-            </tr>
+        <!-- Summary Cards -->
+        <div class="summary-cards">
 
-            {% for row in results %}
-            <tr>
-                <td>{{ row[0] }}</td>
+            <div class="summary-card total-card">
+                <h3>Total Sensors</h3>
+                <p>{{ total_count }}</p>
+            </div>
 
-                {% if row[1] == 'good' %}
-                    <td class="good">{{ row[1] }}</td>
-                {% else %}
-                    <td class="bad">{{ row[1] }}</td>
-                {% endif %}
-            </tr>
-            {% endfor %}
-        </table>
+            <div class="summary-card good-card">
+                <h3>Good Sensors</h3>
+                <p>{{ good_count }}</p>
+            </div>
 
-        <!-- Download Button -->
-        <div class="download-section">
-            <a href="/download">
-                <button class="download-btn">Download CSV</button>
-            </a>
+            <div class="summary-card bad-card">
+                <h3>Bad Sensors</h3>
+                <p>{{ bad_count }}</p>
+            </div>
+
+        </div>
+
+        <!-- Chart Section -->
+        <div class="chart-box">
+            <h3>Good vs Bad Sensor Count</h3>
+            <canvas id="predictionChart"></canvas>
+        </div>
+
+        <!-- Prediction Table -->
+        <div class="result-box">
+            <h2>Prediction Results</h2>
+
+            <table>
+                <tr>
+                    <th>Sensor</th>
+                    <th>Quality</th>
+                </tr>
+
+                {% for row in results %}
+                <tr>
+                    <td>{{ row[0] }}</td>
+
+                    {% if row[1] == 'good' %}
+                        <td class="good">{{ row[1] }}</td>
+                    {% else %}
+                        <td class="bad">{{ row[1] }}</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </table>
+
+            <div class="download-section">
+                <a href="/download">
+                    <button class="download-btn">Download CSV</button>
+                </a>
+            </div>
         </div>
 
     </div>
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        const goodCount = {{ good_count | tojson }};
+        const badCount = {{ bad_count | tojson }};
+
+        const ctx = document.getElementById('predictionChart');
+
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Good Sensors', 'Bad Sensors'],
+                datasets: [{
+                    data: [goodCount, badCount],
+                    backgroundColor: ['#2ecc71', '#e74c3c'],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    </script>
 {% endif %}
-
-
-</body>
-</html>
