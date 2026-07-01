@@ -39,23 +39,32 @@ def upload():
 
             prediction_pipeline = PredictionPipeline(request)
 
-            #  DataFrame return 
+            # DataFrame return
             result_df = prediction_pipeline.run_pipeline()
 
-            # Target column (qualit)
-            result_df.reset_index(inplace=True)
+            # Index reset for sensor numbering
+            result_df = result_df.copy()
+            result_df.reset_index(drop=True, inplace=True)
 
-            # index ko sensor number bana do
-            result_df['Sensor'] = result_df['index'] + 1
+            # Sensor 1, Sensor 2, Sensor 3 ...
+            result_df['Sensor'] = [f"Sensor {i + 1}" for i in range(len(result_df))]
 
+            # Table data
             results = result_df[['Sensor', 'quality']].values.tolist()
 
-            lg.info("prediction completed. Showing results on UI.")
+            # Dashboard counts
+            good_count = int((result_df['quality'] == 'good').sum())
+            bad_count = int((result_df['quality'] == 'bad').sum())
+            total_count = int(len(result_df))
+
+            lg.info("prediction completed. Showing results with dashboard on UI.")
 
             return render_template(
-            'upload_file.html',
-            results=results,
-            download_link="prediction/prediction_file.csv"
+                'upload_file.html',
+                results=results,
+                good_count=good_count,
+                bad_count=bad_count,
+                total_count=total_count
             )
 
         else:
