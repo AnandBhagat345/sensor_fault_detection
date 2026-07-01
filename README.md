@@ -56,7 +56,7 @@ This project is not just a model training notebook. It is structured like a real
 ### Upload CSV Page
 
 <p align="center">
-  <img src="image/upload page.png.jpeg.png" alt="Upload CSV Page" width="850">
+  <img src="image/upload page.png" alt="Upload CSV Page" width="850">
 </p>
 
 ---
